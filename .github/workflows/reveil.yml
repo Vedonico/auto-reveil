@@ -1,0 +1,15 @@
+name: Reveil Studio
+on:
+  schedule:
+    - cron: '0 */4 * * *' # Se lance toutes les 4 heures pile
+  workflow_dispatch:      # Permet de le lancer à la main pour tester
+
+jobs:
+  wakeup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Relancer le Studio
+        run: |
+          curl -X POST https://api.lightning.ai/v1/studios/${{ secrets.LIGHTNING_USER_ID }}/4ncpu/start \
+          -H "Authorization: Bearer ${{ secrets.LIGHTNING_API_KEY }}" \
+          -H "Content-Type: application/json"
